@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Apex Xit Key System</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:'Segoe UI',Arial,sans-serif;
+user-select:none;
+}
+
+body{
+background:#0b0c10;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+color:white;
+}
+
+
+/* KEY SYSTEM */
+
+#keySystem,#login{
+width:350px;
+background:#15161b;
+padding:25px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 0 25px #e65c00;
+}
+
+
+h1{
+color:#e65c00;
+margin-bottom:15px;
+}
+
+
+.step{
+background:#222;
+padding:12px;
+margin:10px 0;
+border-radius:10px;
+}
+
+
+a{
+color:#00ff88;
+font-weight:bold;
+}
+
+
+button{
+width:100%;
+padding:12px;
+border:0;
+border-radius:8px;
+background:#e65c00;
+color:white;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
+}
+
+
+button:disabled{
+background:#444;
+}
+
+
+input{
+width:100%;
+padding:12px;
+margin-top:10px;
+background:#222;
+border:0;
+border-radius:8px;
+color:white;
+text-align:center;
+}
+
+
+.key{
+color:#00ff88;
+font-weight:bold;
+margin-top:15px;
+}
+
+
+
+/* OCULTAR */
+
+#login,#panel,#expired{
+display:none;
+}
+
+
+
+/* PANEL */
+
+.menu-container{
+
+display:flex;
+
+width:470px;
+
+height:320px;
+
+background:#15161b;
+
+border:1px solid #25262b;
+
+border-radius:8px;
+
+overflow:hidden;
+
+box-shadow:0 10px 30px rgba(0,0,0,.5);
+
+}
+
+
+.sidebar{
+
+width:30%;
+
+background:#0f1015;
+
+display:flex;
+
+flex-direction:column;
+
+border-right:1px solid #25262b;
+
+padding-top:10px;
+
+}
+
+
+.tab-btn{
+
+background:none;
+
+border:none;
+
+color:#88888b;
+
+height:60px;
+
+font-size:12px;
+
+font-weight:600;
+
+cursor:pointer;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+gap:5px;
+
+}
+
+
+.tab-btn.active{
+
+color:white;
+
+background:#15161b;
+
+}
+
+
+.tab-icon{
+
+font-size:17px;
+
+}
+
+
+.tab-text{
+
+font-size:10px;
+
+}
+
+
+.content-area{
+
+width:70%;
+
+padding:20px;
+
+overflow-y:auto;
+
+}
+
+
+.tab-content{
+
+display:none;
+
+}
+
+
+.tab-content.active{
+
+display:block;
+
+}
+
+
+.option-item{
+
+display:flex;
+
+align-items:center;
+
+margin-bottom:15px;
+
+cursor:pointer;
+
+}
+
+
+.option-item input{
+
+display:none;
+
+}
+
+
+.custom-checkbox{
+
+width:17px;
+
+height:17px;
+
+background:#1c1d24;
+
+border:1px solid #444;
+
+border-radius:4px;
+
+margin-right:12px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+
+.option-item input:checked + .custom-checkbox{
+
+background:#e65c00;
+
+}
+
+
+.custom-checkbox::after{
+
+content:"✓";
+
+display:none;
+
+}
+
+
+.option-item input:checked + .custom-checkbox::after{
+
+display:block;
+
+}
+
+
+.option-label{
+
+font-size:13px;
+
+font-weight:600;
+
+}
+
+
+.fov-slider{
+
+width:100%;
+
+}
+
+
+.fov-value{
+
+color:#e65c00;
+
+font-weight:bold;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<div id="keySystem">
+
+<h1>🔐 KEY SYSTEM</h1>
+
+
+<div class="step">
+
+1️⃣ Seguir TikTok
+
+<br>
+
+<a href="https://www.tiktok.com/@juanvillalobos493?_r=1&_t=ZP-980jMkQOzvz" target="_blank" onclick="complete(1)">
+ABRIR
+</a>
+
+<p id="s1">❌</p>
+
+</div>
+
+
+<div class="step">
+
+2️⃣ Like al video
+
+<br>
+
+<a href="https://www.tiktok.com/t/ZP8GtaCqt/" target="_blank" onclick="complete(2)">
+ABRIR
+</a>
+
+<p id="s2">❌</p>
+
+</div>
+
+
+<div class="step">
+
+3️⃣ Apoyar videos
+
+<br>
+
+<a href="https://www.tiktok.com/t/ZP8GtbJw8/" target="_blank" onclick="complete(3)">
+ABRIR
+</a>
+
+<p id="s3">❌</p>
+
+</div>
+
+
+<button id="generate" disabled onclick="generateKey()">
+GENERAR KEY
+</button>
+
+
+<div class="key" id="key"></div>
+
+
+</div><div id="login">
+
+<h1>🎯 APEX XIT</h1>
+
+<input id="keyInput" placeholder="LIC-XXXXXXXX">
+
+<button onclick="openPanel()">
+ENTRAR AL PANEL
+</button>
+
+<p id="error"></p>
+
+</div>
+
+
+
+<div id="expired">
+
+<h1>🔒 KEY VENCIDA</h1>
+
+<p>Genera una nueva key.</p>
+
+<button onclick="newKey()">
+NUEVA KEY
+</button>
+
+</div>
+
+
+
+
+<div id="panel">
+
+<div class="menu-container">
+
+
+<div class="sidebar">
+
+
+<button class="tab-btn active" onclick="switchTab('aimbot')">
+
+<span class="tab-icon">🎯</span>
+<span class="tab-text">Aimbot</span>
+
+</button>
+
+
+<button class="tab-btn" onclick="switchTab('settings')">
+
+<span class="tab-icon">⚙️</span>
+<span class="tab-text">Settings</span>
+
+</button>
+
+
+</div>
+
+
+
+
+<div class="content-area">
+
+
+<div id="aimbot" class="tab-content active">
+
+
+<label class="option-item">
+
+<input type="checkbox" checked>
+
+<span class="custom-checkbox"></span>
+
+<span class="option-label">
+Aimbot
+</span>
+
+</label>
+
+
+
+<label class="option-item">
+
+<input type="checkbox" checked>
+
+<span class="custom-checkbox"></span>
+
+<span class="option-label">
+Show Fov
+</span>
+
+</label>
+
+
+
+<p>Fov Size (360°)</p>
+
+<input type="range"
+min="0"
+max="360"
+value="180"
+class="fov-slider"
+oninput="updateFovValue(this.value)">
+
+
+<p class="fov-value" id="fovVal">
+180°
+</p>
+
+
+
+
+<label class="option-item">
+
+<input type="checkbox" checked>
+
+<span class="custom-checkbox"></span>
+
+<span class="option-label">
+Ignore bots
+</span>
+
+</label>
+
+
+
+
+<label class="option-item">
+
+<input type="checkbox" checked>
+
+<span class="custom-checkbox"></span>
+
+<span class="option-label">
+Ignore wall
+</span>
+
+</label>
+
+
+</div>
+
+
+
+<div id="settings" class="tab-content">
+
+<p style="color:#666;font-size:13px;">
+Configuración general de la interfaz.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+<script>
+
+
+let steps=[false,false,false];
+
+let expireTimer;
+
+
+
+function complete(n){
+
+steps[n-1]=true;
+
+document.getElementById("s"+n).innerHTML="✅";
+
+
+if(steps.every(x=>x)){
+
+document.getElementById("generate").disabled=false;
+
+}
+
+}
+
+
+
+
+function generateKey(){
+
+let key="LIC-";
+
+
+for(let i=0;i<8;i++){
+
+key+=Math.floor(Math.random()*10);
+
+}
+
+
+
+localStorage.setItem("panelKey",key);
+
+
+// dura 1 hora
+
+localStorage.setItem(
+"expire",
+Date.now()+3600000
+);
+
+
+
+let t=40;
+
+
+let timer=setInterval(()=>{
+
+
+document.getElementById("key").innerHTML=
+
+"KEY:<br>"+key+
+"<br>Tiempo: "+t+"s"+
+"<br><button onclick='copyKey()'>📋 COPIAR KEY</button>"+
+"<br><button onclick='goLogin()'>🎯 IR AL PANEL</button>";
+
+
+t--;
+
+
+if(t<0){
+
+clearInterval(timer);
+
+goLogin();
+
+}
+
+
+},1000);
+
+
+}
+
+
+
+
+
+function copyKey(){
+
+navigator.clipboard.writeText(
+localStorage.getItem("panelKey")
+);
+
+alert("✅ KEY COPIADA");
+
+}
+
+
+
+
+function goLogin(){
+
+document.getElementById("keySystem").style.display="none";
+
+document.getElementById("login").style.display="block";
+
+}
+
+
+
+
+
+function openPanel(){
+
+
+let key=document.getElementById("keyInput").value;
+
+let saved=localStorage.getItem("panelKey");
+
+let exp=localStorage.getItem("expire");
+
+
+
+if(key===saved && Date.now()<exp){
+
+
+document.getElementById("login").style.display="none";
+
+document.getElementById("panel").style.display="block";
+
+
+checkExpire();
+
+
+}else{
+
+
+document.getElementById("error").innerHTML=
+"❌ Key incorrecta o vencida";
+
+}
+
+
+}
+
+
+
+
+
+function checkExpire(){
+
+
+expireTimer=setInterval(()=>{
+
+
+let exp=localStorage.getItem("expire");
+
+
+if(Date.now()>exp){
+
+
+clearInterval(expireTimer);
+
+
+document.body.innerHTML=
+
+`
+<div style="
+height:100vh;
+width:100vw;
+background:#000;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+font-size:35px;
+font-family:Arial;
+font-weight:bold;
+text-align:center;
+">
+🔒 KEY VENCIDA
+</div>
+`;
+
+
+}
+
+
+},1000);
+
+
+}
+
+
+
+
+
+function newKey(){
+
+localStorage.clear();
+
+location.reload();
+
+}
+
+
+
+
+
+function switchTab(id){
+
+
+document.querySelectorAll(".tab-content")
+.forEach(x=>x.classList.remove("active"));
+
+
+document.querySelectorAll(".tab-btn")
+.forEach(x=>x.classList.remove("active"));
+
+
+document.getElementById(id)
+.classList.add("active");
+
+
+event.currentTarget.classList.add("active");
+
+
+}
+
+
+
+
+
+function updateFovValue(v){
+
+document.getElementById("fovVal").innerHTML=
+v+"°";
+
+}
+
+
+</script>
+
+
+</body>
+</html>
